@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Кощеев Максим — резюме</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Rubik:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Помечаем страницу, что JS работает: нужно, чтобы блоки не мигали до появления -->
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+
+<body>
+
+  <!-- Шум на фоне (рисуется в script.js) -->
+  <div id="noise" aria-hidden="true"></div>
+
+  <!-- Фильтр, который делает края букв рваными -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="rough">
+      <feTurbulence id="tb" type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" />
+      <feDisplacementMap in="SourceGraphic" scale="2.5" />
+    </filter>
+  </svg>
+
+  <main>
+
+    <div class="head">
+
+      <h1 class="r">
+        <span class="fx g" data-t="КОЩЕЕВ">КОЩЕЕВ</span>
+        <span class="fx g" data-t="МАКСИМ">МАКСИМ</span>
+      </h1>
+
+      <p class="r">
+        <span class="role fx">
+          Студент НИУ ВШЭ (СПб), вычислительная биология и биоинформатика
+        </span>
+      </p>
+
+      <div class="row r">
+
+        <div class="photo fxi">
+          <span>Добавь photo.jpg</span>
+          <img src="photo.jpg" alt="Фото" onerror="this.remove()">
+        </div>
+
+        <!-- Кнопки контактов: значения подставляются в script.js -->
+        <button class="ib fxi" data-k="tel" aria-label="Показать телефон" aria-expanded="false">
+          <svg viewBox="0 0 24 24">
+            <path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" />
+          </svg>
+        </button>
+
+        <button class="ib fxi" data-k="mail" aria-label="Показать почту" aria-expanded="false">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.5 7v.1L12 13l7.5-5.9V7z" />
+          </svg>
+        </button>
+
+        <button class="ib fxi" data-k="tg" aria-label="Показать Telegram" aria-expanded="false">
+          <svg viewBox="0 0 24 24">
+            <path d="M21.5 3.3 2.7 10.6c-.9.4-.9 1.6 0 1.9l4.6 1.5 1.8 5.6c.2.6 1 .8 1.4.3l2.6-2.5 4.7 3.5c.6.4 1.3.1 1.5-.6L22.9 4.6c.2-.9-.6-1.6-1.4-1.3zM9.4 13.6l8.2-5.1-6.3 6.1-.3 3z" />
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- Сюда выезжает телефон / почта / Telegram по нажатию -->
+      <div class="info" id="info" aria-live="polite"></div>
+
+    </div>
+
+    <section>
+      <h2 class="r"><span class="fx">ОБРАЗОВАНИЕ</span></h2>
+
+      <div class="e r">
+        <div class="fx">
+          <b>НИУ ВШЭ</b>
+          <span>Санкт-Петербург, учусь сейчас</span>
+          <p>Вычислительная биология и биоинформатика.</p>
+        </div>
+      </div>
+
+      <div class="e r">
+        <div class="fx">
+          <b>2022–2026 Горный университет</b>
+          <span>Санкт-Петербург, бакалавриат</span>
+          <p>
+            Нефтегазовый факультет, кафедра бурения скважин.
+            Профиль «Бурение нефтяных и газовых скважин».
+            Английский язык B2.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="r"><span class="fx">ОПЫТ</span></h2>
+
+      <div class="e r">
+        <div class="fx">
+          <b>2025 РусГазБурение</b>
+          <p>
+            Работа в отделе автоматизации технологических процессов
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="r"><span class="fx">ПРОЕКТЫ</span></h2>
+
+      <div class="e r">
+        <div class="fx">
+          <b>Telegram-бот для задач концертного агентства GNG</b>
+          <p>
+            Интеграция с Trello API, роли пользователей, фильтрация задач по типам
+            через интерфейс бота, выдача задач по заданным датам.
+            Развёрнут на виртуальном сервере.
+          </p>
+        </div>
+      </div>
+
+      <div class="e r">
+        <div class="fx">
+          <b>Учебный стенд на Arduino</b>
+          <span>Программа «Ассистент учёного»</span>
+          <p>
+            Логика работы системы и взаимодействие компонентов,
+            управление шаговым двигателем, датчики и сигнализация.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="r"><span class="fx">НАВЫКИ</span></h2>
+
+      <div class="r">
+        <span class="tag fx">Python</span>
+        <span class="tag fx">C</span>
+        <span class="tag fx">Docker</span>
+        <span class="tag fx">REST API</span>
+        <span class="tag fx">Power BI</span>
+        <span class="tag fx">Loginom</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

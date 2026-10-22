@@ -1,0 +1,353 @@
+/* ---------- Базовые цвета и настройки ---------- */
+:root {
+  --bg: #0e0e0e;
+  --fg: #a9a9a9;
+  --hi: #d8d8d8;
+  --dim: #6b6b6b;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  background: var(--bg);
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font: 700 17px/1.35 Rubik, Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 10vh 20px 14vh;
+}
+
+/* ---------- Шум на фоне ---------- */
+/* Плитки рисуются в script.js. screen = тёмные точки не затемняют текст */
+#noise {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  opacity: .6;
+  mix-blend-mode: screen;
+  background-size: 256px 256px;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* ---------- Шапка ---------- */
+.head {
+  margin-bottom: 4.5rem;
+  text-align: left;
+}
+
+h1 {
+  margin: 0 0 1.2rem;
+  font: 800 clamp(2.4rem, 12vw, 5rem) / .98 Unbounded, Impact, sans-serif;
+  color: var(--hi);
+  filter: url(#rough);
+}
+
+.role {
+  display: block;
+  margin: 0 0 1.6rem;
+  color: var(--hi);
+  font-size: 1.05rem;
+}
+
+/* Глитч у имени: две полупрозрачные копии, которые рывками сдвигаются */
+.g {
+  position: relative;
+  display: block;
+}
+
+.g::before,
+.g::after {
+  content: attr(data-t);
+  position: absolute;
+  inset: 0;
+  color: #fff;
+  opacity: .7;
+  pointer-events: none;
+}
+
+.g::before { animation: glitch-a 2.6s steps(1) infinite; }
+.g::after  { animation: glitch-b 2.1s steps(1) infinite; }
+
+@keyframes glitch-a {
+  0%, 100% { transform: translate(0);         clip-path: inset(0 0 100% 0); }
+  6%       { transform: translate(-9px, 1px);  clip-path: inset(18% 0 55% 0); }
+  9%       { transform: translate(7px, -2px);  clip-path: inset(60% 0 12% 0); }
+  12%      { clip-path: inset(0 0 100% 0); }
+  71%      { transform: translate(-12px, 0);   clip-path: inset(35% 0 40% 0); }
+  74%      { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes glitch-b {
+  0%, 100% { transform: translate(0);         clip-path: inset(0 0 100% 0); }
+  20%      { transform: translate(10px, 2px);  clip-path: inset(50% 0 20% 0); }
+  23%      { transform: translate(-6px, 0);    clip-path: inset(8% 0 70% 0); }
+  26%      { clip-path: inset(0 0 100% 0); }
+  83%      { transform: translate(9px, -1px);  clip-path: inset(72% 0 5% 0); }
+  86%      { clip-path: inset(0 0 100% 0); }
+}
+
+/* ---------- Фото и контакты ---------- */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.photo {
+  position: relative;
+  width: 170px;
+  aspect-ratio: 3 / 4;
+  display: block;
+  border: 2px dashed var(--dim);
+  overflow: hidden;
+  color: var(--dim);
+  font-size: .72rem;
+  line-height: 1.2;
+}
+
+.photo span {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  text-align: center;
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.15);
+}
+
+.ib {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 5px;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.ib:hover,
+.ib:focus-visible,
+.ib[aria-expanded=true] {
+  color: #fff;
+  outline: 0;
+}
+
+.ib svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.info {
+  min-height: 1.6rem;
+  margin-top: 1.1rem;
+  color: var(--hi);
+  font-size: 1.15rem;
+}
+
+.info a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid var(--dim);
+}
+
+.info.in {
+  animation: reveal 1s steps(1) both;
+}
+
+/* ---------- Разделы ---------- */
+section {
+  margin-bottom: 3.4rem;
+}
+
+h2 {
+  margin: 0 0 1.4rem;
+  font: 800 clamp(1.5rem, 6vw, 2.2rem) / 1 Unbounded, Impact, sans-serif;
+  color: var(--hi);
+  filter: url(#rough);
+}
+
+h2 .fx {
+  display: block;
+}
+
+.e {
+  margin-bottom: 1.5rem;
+}
+
+.e b {
+  display: block;
+  color: var(--hi);
+  font-size: 1.12rem;
+}
+
+.e span {
+  display: block;
+  color: var(--dim);
+  font-size: .92rem;
+}
+
+.e p {
+  margin: .35rem 0 0;
+  font-size: .98rem;
+  font-weight: 500;
+}
+
+.tag {
+  display: inline-block;
+  margin: .3rem .35rem;
+  color: var(--hi);
+}
+
+/* ---------- Тряска ----------
+   Почти всё время текст стоит спокойно: короткая дрожь,
+   пауза, потом резкая тряска влево-вправо со следами.
+   Длительность цикла: 10s. */
+.fx  { animation: shake      10s steps(1) infinite; }
+.fxi { animation: shake-icon 10s steps(1) infinite; }
+
+/* Для текста: следы делаются через text-shadow */
+@keyframes shake {
+  0%  { transform: none; }
+  2%  { transform: translateX(-2px); }
+  4%  { transform: translateX(2px); }
+  6%  { transform: translateX(-2px); }
+  8%  { transform: translateX(1px); }
+  10% { transform: none; }
+
+  62% { transform: translateX(-2px); }
+  64% { transform: translateX(2px); }
+  66% { transform: translateX(-2px); }
+
+  68% {
+    transform: translateX(-16px);
+    text-shadow: 12px 0 0 rgba(169, 169, 169, .5), 24px 0 0 rgba(169, 169, 169, .28), 36px 0 0 rgba(169, 169, 169, .12);
+  }
+  69% {
+    transform: translateX(14px);
+    text-shadow: -12px 0 0 rgba(169, 169, 169, .5), -24px 0 0 rgba(169, 169, 169, .28), -36px 0 0 rgba(169, 169, 169, .12);
+  }
+  70% {
+    transform: translateX(-22px) skewX(-6deg);
+    text-shadow: 14px 0 0 rgba(169, 169, 169, .5), 28px 0 0 rgba(169, 169, 169, .28), 42px 0 0 rgba(169, 169, 169, .12);
+  }
+  71% {
+    transform: translateX(18px) skewX(5deg);
+    text-shadow: -14px 0 0 rgba(169, 169, 169, .5), -28px 0 0 rgba(169, 169, 169, .28), -42px 0 0 rgba(169, 169, 169, .12);
+  }
+  72% {
+    transform: translateX(-10px);
+    text-shadow: 8px 0 0 rgba(169, 169, 169, .4), 16px 0 0 rgba(169, 169, 169, .18);
+  }
+  73% {
+    transform: translateX(6px);
+    text-shadow: -6px 0 0 rgba(169, 169, 169, .3);
+  }
+  74% { transform: none; text-shadow: none; }
+}
+
+/* Для иконок и фото: следы делаются через drop-shadow */
+@keyframes shake-icon {
+  0%  { transform: none; }
+  2%  { transform: translateX(-2px); }
+  4%  { transform: translateX(2px); }
+  6%  { transform: translateX(-2px); }
+  8%  { transform: translateX(1px); }
+  10% { transform: none; }
+
+  66% { transform: translateX(-2px); }
+
+  68% {
+    transform: translateX(-12px);
+    filter: drop-shadow(10px 0 0 rgba(169, 169, 169, .5)) drop-shadow(20px 0 0 rgba(169, 169, 169, .25));
+  }
+  69% {
+    transform: translateX(11px);
+    filter: drop-shadow(-10px 0 0 rgba(169, 169, 169, .5)) drop-shadow(-20px 0 0 rgba(169, 169, 169, .25));
+  }
+  70% {
+    transform: translateX(-16px);
+    filter: drop-shadow(12px 0 0 rgba(169, 169, 169, .5)) drop-shadow(24px 0 0 rgba(169, 169, 169, .25));
+  }
+  71% {
+    transform: translateX(13px);
+    filter: drop-shadow(-12px 0 0 rgba(169, 169, 169, .45)) drop-shadow(-24px 0 0 rgba(169, 169, 169, .22));
+  }
+  72% {
+    transform: translateX(-5px);
+    filter: drop-shadow(5px 0 0 rgba(169, 169, 169, .35));
+  }
+  74% { transform: none; filter: none; }
+}
+
+/* ---------- Появление при прокрутке ----------
+   Элемент мигает и дёргается. Длительность анимации: 1s
+   (больше число = медленнее). */
+.js .r {
+  opacity: 0;
+}
+
+.js .r.in {
+  animation: reveal 1s steps(1) both;
+}
+
+@keyframes reveal {
+  0%   { opacity: 0;   transform: translateX(-34px); }
+  10%  { opacity: 1;   transform: translateX(26px); }
+  22%  { opacity: 0;   transform: translateX(0); }
+  32%  { opacity: 1;   transform: translateX(-18px) skewX(-8deg); }
+  44%  { opacity: .25; transform: translateX(14px); }
+  56%  { opacity: 1;   transform: translateX(-9px); }
+  68%  { opacity: .5;  transform: translateX(6px) skewX(4deg); }
+  80%  { opacity: 1;   transform: translateX(-3px); }
+  100% { opacity: 1;   transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g::before,
+  .g::after,
+  .fx,
+  .fxi,
+  .info.in {
+    animation: none;
+  }
+
+  .js .r { opacity: 1; }
+  .js .r.in { animation: none; }
+  #noise { display: none; }
+}
